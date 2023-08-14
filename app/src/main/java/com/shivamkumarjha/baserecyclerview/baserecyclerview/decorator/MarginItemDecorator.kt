@@ -23,7 +23,7 @@ class MarginItemDecorator(
         val itemCount = state.itemCount
 
         // Apply margins only to items
-        if (position != RecyclerView.NO_POSITION && position < itemCount - 1) {
+        if (position != RecyclerView.NO_POSITION && position <= itemCount - 1) {
             outRect.left = leftMargin
             outRect.top = topMargin
             outRect.right = rightMargin

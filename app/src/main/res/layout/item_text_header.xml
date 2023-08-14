@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="itemPosition"
+            type="Integer" />
+
+        <variable
+            name="data"
+            type="com.shivamkumarjha.baserecyclerview.baserecyclerview.databinder.TextHeader" />
+    </data>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_header_chats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        tools:text="Yo Shivam" />
+</layout>
