@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.ITEM_IMAGES
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.ViewDataBinder
+import com.shivamkumarjha.baserecyclerview.baserecyclerview.decorator.LinePagerIndicatorDecoration
 import com.shivamkumarjha.baserecyclerview.databinding.ItemHorizontalListBinding
 
 class MainImagesDataBinder(
@@ -27,6 +28,7 @@ class MainImagesDataBinder(
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             setRecycledViewPool(pool)
+            addItemDecoration(LinePagerIndicatorDecoration())
 
             onFlingListener = object : RecyclerView.OnFlingListener() {
                 override fun onFling(velocityX: Int, velocityY: Int): Boolean {
