@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.BaseViewType
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.databinder.TextHeader
-import com.shivamkumarjha.baserecyclerview.baserecyclerview.decorator.MarginItemDecorator
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.util.dp
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.util.toast
 import com.shivamkumarjha.baserecyclerview.databinding.ActivityMainBinding
@@ -33,13 +32,28 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@MainActivity)
             setHasFixedSize(true)
             adapter = mainAdapter
-            addItemDecoration(MarginItemDecorator(16.dp, 24.dp, 16.dp, 48.dp))
+            addItemDecoration(MainItemDecorator { position, rect ->
+                rect.top = when (position) {
+                    0 -> 24.dp
+                    else -> 8.dp
+                }
+                rect.bottom = when (position) {
+                    (mainAdapter.itemCount - 1) -> 48.dp
+                    else -> 0.dp
+                }
+                rect.apply {
+                    left = 16.dp
+                    right = 16.dp
+                }
+            })
         }
 
         val items: ArrayList<BaseViewType> = arrayListOf()
-        items.add(TextHeader("Shivam", 16f))
-        items.add(TextHeader("Kumar", 14f))
-        items.add(TextHeader("Jha", 20f))
+        repeat(50) {
+            items.add(TextHeader("Shivam", 16f))
+            items.add(TextHeader("Kumar", 14f))
+            items.add(TextHeader("Jha", 20f))
+        }
         mainAdapter.submitList(items)
     }
 }
