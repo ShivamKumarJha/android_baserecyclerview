@@ -48,6 +48,11 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    //RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.1")
     implementation("androidx.paging:paging-runtime-ktx:3.2.0")
+
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.13.2")
+    implementation("jp.wasabeef:glide-transformations:4.3.0")
 }

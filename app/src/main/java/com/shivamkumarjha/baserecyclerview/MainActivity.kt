@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.BaseViewType
+import com.shivamkumarjha.baserecyclerview.baserecyclerview.databinder.MainImage
+import com.shivamkumarjha.baserecyclerview.baserecyclerview.databinder.MainImages
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.databinder.TextHeader
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.util.dp
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.util.toast
@@ -13,7 +15,7 @@ import com.shivamkumarjha.baserecyclerview.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private val mainAdapter: MainAdapter by lazy {
-        MainAdapter { text ->
+        MainAdapter(binding.rvDemo.recycledViewPool) { text ->
             toast(text)
         }
     }
@@ -48,11 +50,21 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
+        val mainImages = MainImages(
+            arrayListOf(
+                MainImage("https://img.freepik.com/premium-photo/cat-looking-out-desert-landscape_839976-84.jpg"),
+                MainImage("https://i.pinimg.com/originals/cd/13/c8/cd13c8ed6e74a90cf9deba9b09d63724.jpg"),
+                MainImage("https://e0.pxfuel.com/wallpapers/1009/82/desktop-wallpaper-animals-landscape-cats.jpg"),
+                MainImage("https://pbs.twimg.com/media/C2-eHBHWIAAWdq9.jpg"),
+                MainImage("https://www.boredpanda.com/blog/wp-content/uploads/2020/01/cat-landscape-16-5e2e60a2dc5c5__605.jpg"),
+            )
+        )
         val items: ArrayList<BaseViewType> = arrayListOf()
         repeat(50) {
             items.add(TextHeader("Shivam", 16f))
             items.add(TextHeader("Kumar", 14f))
             items.add(TextHeader("Jha", 20f))
+            items.add(mainImages)
         }
         mainAdapter.submitList(items)
     }
