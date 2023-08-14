@@ -15,6 +15,9 @@ class MainImagesDataBinder(
     private val pool: RecyclerView.RecycledViewPool,
 ) : ViewDataBinder<ItemHorizontalListBinding, MainImages>() {
 
+    // Store the position of each horizontal recycler view
+    private val stateMap = mutableMapOf<Int, Int>()
+
     override val viewType: Int
         get() = ITEM_IMAGES
 
@@ -47,6 +50,10 @@ class MainImagesDataBinder(
                         }
                         smoothScroller.targetPosition = targetPosition
                         (layoutManager as? LinearLayoutManager)?.startSmoothScroll(smoothScroller)
+
+                        // Save state
+                        val rvPos = binding.itemPosition ?: return true
+                        stateMap[rvPos] = targetPosition
                     }
                     return true
                 }
@@ -61,10 +68,18 @@ class MainImagesDataBinder(
         position: Int,
         itemCount: Int
     ) {
+        binding.data = data
+        binding.itemPosition = position
+
         val mainImageAdapter = MainImageAdapter()
+        mainImageAdapter.submitList(data.images)
         binding.rvHor.apply {
             adapter = mainImageAdapter
+
+            // Restore state if available
+            stateMap[position]?.let {
+                scrollToPosition(it)
+            }
         }
-        mainImageAdapter.submitList(data.images)
     }
 }
