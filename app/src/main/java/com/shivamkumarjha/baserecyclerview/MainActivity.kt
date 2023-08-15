@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                     right = 16.dp
                 }
             })
+            addItemDecoration(StickyHeaderDecoration(mainAdapter, binding.root))
         }
 
         val mainImages = MainImages(
