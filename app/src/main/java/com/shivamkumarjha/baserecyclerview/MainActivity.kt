@@ -1,16 +1,22 @@
 package com.shivamkumarjha.baserecyclerview
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.BaseViewType
+import com.shivamkumarjha.baserecyclerview.baserecyclerview.ITEM_IMAGE
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.databinder.MainImage
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.databinder.MainImages
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.databinder.TextHeader
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.util.dp
 import com.shivamkumarjha.baserecyclerview.baserecyclerview.util.toast
 import com.shivamkumarjha.baserecyclerview.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -61,12 +67,47 @@ class MainActivity : AppCompatActivity() {
             )
         )
         val items: ArrayList<BaseViewType> = arrayListOf()
-        repeat(50) {
+        repeat(5) {
             items.add(TextHeader("Shivam", 16f))
             items.add(TextHeader("Kumar", 14f))
             items.add(TextHeader("Jha", 20f))
             items.add(mainImages)
         }
         mainAdapter.submitList(items)
+
+        //List manipulation demo
+        lifecycleScope.launch(Dispatchers.IO) {
+            delay(3000)
+            Log.d(TAG, "addItem")
+            mainAdapter.addItem(TextHeader("addItem", 12f))
+            delay(3000)
+            Log.d(TAG, "addItem 0")
+            mainAdapter.addItem(0, TextHeader("addItem at 0", 12f))
+            delay(3000)
+            Log.d(TAG, "addItems")
+            mainAdapter.addItems(mainImages.images)
+            delay(3000)
+            Log.d(TAG, "addItems 0")
+            mainAdapter.addItems(0, mainImages.images)
+            delay(3000)
+            Log.d(TAG, "removeIndex 0")
+            mainAdapter.removeIndex(0)
+            delay(3000)
+            Log.d(TAG, "removeLast")
+            mainAdapter.removeLast()
+            delay(3000)
+            Log.d(TAG, "removeView $ITEM_IMAGE")
+            mainAdapter.removeView(ITEM_IMAGE)
+            delay(3000)
+            Log.d(TAG, "updateItem 0")
+            mainAdapter.updateItem(0, TextHeader("updateItem at 0", 12f))
+            delay(3000)
+            Log.d(TAG, "clearItems")
+            mainAdapter.clearItems()
+        }
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
     }
 }
